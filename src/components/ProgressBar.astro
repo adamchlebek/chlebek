@@ -9,8 +9,8 @@ const { progress } = Astro.props;
 <div class="relative mb-5">
   <div class="p-1 border border-red-500 rounded-full">
     <div
-      class=`flex items-center justify-center text-xs leading-none bg-red-300 rounded-full w-[80%] h-[80%]`
-      `
+      class="flex items-center justify-center h-6 text-xs leading-none bg-red-300 rounded-full"
+      style=`width: ${progress}%; height: ${progress}%;`
     >
       <span class="p-1 text-white">{progress}%</span>
     </div>
