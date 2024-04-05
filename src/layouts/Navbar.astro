@@ -1,0 +1,32 @@
+---
+import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
+import NavItem from "@/components/NavItem.astro";
+
+const currentPath = new URL(Astro.request.url).pathname;
+---
+
+<div class="bg-gray-900">
+  <header class="container justify-between gap-5 p-5 mx-auto lg:flex">
+    <Astronav closeOnClick>
+      <div class="flex justify-between w-full cursor-pointer lg:w-auto">
+        <a href="/">
+          <img src="/logo_white.svg" class="h-16" alt="Chlebek Logo" />
+        </a>
+        <div class="block mt-5 lg:hidden">
+          <MenuIcon class="w-4 h-4 text-white" />
+        </div>
+      </div>
+      <MenuItems class="hidden mt-3 text-gray-200 lg:flex">
+        <ul class="flex flex-col lg:flex-row lg:gap-8">
+          <NavItem route="/" title="Home" currentPath={currentPath} />
+          <NavItem
+            route="/portfolio"
+            title="Portfolio"
+            currentPath={currentPath}
+          />
+          <NavItem route="/contact" title="Contact" currentPath={currentPath} />
+        </ul>
+      </MenuItems>
+    </Astronav>
+  </header>
+</div>

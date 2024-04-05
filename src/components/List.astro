@@ -1,0 +1,13 @@
+---
+import type { ListItemDTO } from "@/shared/ListItemDTO";
+import ListItem from "./ListItem.astro";
+interface Props {
+  items: ListItemDTO[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="list-disc">
+  {items.map((item) => <ListItem item={item} />)}
+</ul>

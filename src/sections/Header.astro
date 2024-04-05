@@ -1,0 +1,21 @@
+---
+import { Button } from "@/components/ui/button";
+import { getHeaderText } from "@/lib/getContent";
+
+const headerText = await getHeaderText();
+---
+
+<div class="w-full text-center bg-gray-100">
+  <div class="px-6 pt-24">
+    <p class="font-bold uppercase text-7xl">Adam Chlebek</p>
+    <p class="px-6 pt-6 text-xl sm:text-lg sm:px-6 md:px-24 lg:px-48">
+      {headerText}
+    </p>
+    <div class="mt-8 sm:mt-6">
+      <Button size={"lg"}>Download Resume</Button>
+    </div>
+  </div>
+  <div class="flex justify-center w-full">
+    <img src="/logo_black.svg" alt="Hero" class="h-auto max-w-xs mx-auto" />
+  </div>
+</div>

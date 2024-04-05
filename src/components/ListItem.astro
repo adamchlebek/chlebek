@@ -1,0 +1,14 @@
+---
+import type { ListItemDTO } from "@/shared/ListItemDTO";
+
+interface Props {
+  item?: ListItemDTO;
+}
+
+const { item } = Astro.props;
+---
+
+<li class="custom-list-item">
+  <span class="font-bold text-gray-700">{item?.header}</span>
+  {item?.subtext ? <span> - {item.subtext}</span> : ""}
+</li>

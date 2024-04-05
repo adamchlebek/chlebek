@@ -1,0 +1,14 @@
+---
+interface Props {
+    route: string;
+    title: string;
+	currentPath?: string;
+}
+
+const { route, title, currentPath } = Astro.props;
+const classes = `${currentPath === route ? 'text-blue-300' : 'text-white'} mt-3 text-center`;
+---
+
+<li class={classes}>
+    <a href={route}>{title}</a>
+</li>
