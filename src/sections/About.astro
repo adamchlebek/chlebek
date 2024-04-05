@@ -1,0 +1,61 @@
+---
+import AboutCard from "@/components/AboutCard.astro";
+import type { AboutCardDTO } from "@/shared/AboutCardDTO";
+import {
+  getAboutText,
+  getAboutCardsData,
+  getSkillsList,
+  getCourseWorkList,
+} from "@/lib/getContent";
+import List from "@/components/List.astro";
+import ProgressBar from "@/components/ProgressBar.astro";
+
+const aboutText = await getAboutText();
+const aboutCardsData: AboutCardDTO[] = await getAboutCardsData();
+const skillsList = await getSkillsList();
+const courseWorkList = await getCourseWorkList();
+---
+
+<!-- Div that has two 1/2 divs side by side -->
+<div class="flex flex-col p-20 md:flex-row">
+  <div class="w-full md:w-1/2">
+    <p class="text-4xl font-bold uppercase">About</p>
+    <p class="pt-2 mr-24 md:mr-8">{aboutText}</p>
+
+    <!-- Updated for centering and spacing -->
+    <div
+      class="flex flex-wrap justify-center mt-4 gap-x-12 gap-y-4 md:justify-start"
+    >
+      {
+        aboutCardsData.map((card) => (
+          <div class="w-full px-4 md:w-auto md:px-0">
+            <AboutCard
+              icon={card.icon}
+              title={card.title}
+              subtext={card.subtext}
+            />
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-6">
+      <p class="text-2xl font-bold">Skills</p>
+      <List items={skillsList} />
+    </div>
+
+    <div class="mt-6">
+      <p class="text-2xl font-bold">Relavent Course Work</p>
+      <List items={courseWorkList} />
+    </div>
+  </div>
+  <div class="w-full md:w-1/2">
+    <div class="h-auto p-6 border border-gray-200 rounded-lg shadow-sm">
+      <p class="text-2xl font-bold text-center uppercase">
+        Coding Language Proficiency Level
+      </p>
+
+      <ProgressBar progress={20} />
+    </div>
+  </div>
+</div>
