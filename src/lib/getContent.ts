@@ -47,6 +47,12 @@ export async function getCourseWorkList() {
   return data?.object.metadata.items;
 }
 
+export async function getCodingLevelList(){
+  const data = await makeSingleRequest('lists', 'coding-levels');
+
+  return data?.object.metadata.items;
+}
+
 async function makeSingleRequest(type: string, slug: string) {
   try {
     const data = await cosmic.objects.findOne({

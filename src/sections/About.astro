@@ -6,14 +6,16 @@ import {
   getAboutCardsData,
   getSkillsList,
   getCourseWorkList,
+  getCodingLevelList,
 } from "@/lib/getContent";
-import List from "@/components/List.astro";
-import ProgressBar from "@/components/ProgressBar.astro";
+import List from "@/components/List/List.astro";
+import ProgressBarCard from "@/components/ProgressBar/ProgressBarCard.astro";
 
 const aboutText = await getAboutText();
 const aboutCardsData: AboutCardDTO[] = await getAboutCardsData();
 const skillsList = await getSkillsList();
 const courseWorkList = await getCourseWorkList();
+const codingLevelList = await getCodingLevelList();
 ---
 
 <!-- Div that has two 1/2 divs side by side -->
@@ -55,7 +57,15 @@ const courseWorkList = await getCourseWorkList();
         Coding Language Proficiency Level
       </p>
 
-      <ProgressBar progress={20} />
+      {
+        codingLevelList.map((item) => (
+          <ProgressBarCard
+            progress={item.progress}
+            title={item.header}
+            subtitle={item.subtext}
+          />
+        ))
+      }
     </div>
   </div>
 </div>
