@@ -1,0 +1,39 @@
+---
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+interface Props {
+  company: string;
+  logoUrl?: string;
+  title: string;
+  range: string;
+  list?: string[];
+}
+
+const { company, logoUrl, title, range, list } = Astro.props;
+---
+
+<Card className="w-full text-center min-h-[425px]">
+  <CardHeader>
+    <CardDescription />
+    {
+      logoUrl ? (
+        <CardTitle className="p-4 flex flex-wrap justify-center">
+          <img src={logoUrl} alt="work" class="h-14" />
+        </CardTitle>
+      ) : null
+    }
+    <CardTitle className="pt-2">{company}</CardTitle>
+    <CardDescription className="pt-2 font-bold">{title}</CardDescription>
+    <CardDescription className="">{range}</CardDescription>
+    <CardFooter className="pt-2 ml-2">
+      <ul class="list-disc text-wrap">
+        {list ? list.map((x) => <li>{x}</li>) : null}
+      </ul>
+    </CardFooter>
+  </CardHeader>
+</Card>

@@ -1,4 +1,5 @@
 export type ListItemDTO = {
-    header: string;
-    subtext?: string;
-}
+  header: string;
+  subtext?: string;
+  progress?: number;
+};
