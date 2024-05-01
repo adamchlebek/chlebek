@@ -1,0 +1,44 @@
+---
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+interface Props {
+  id: number;
+  school: string;
+  location: string;
+  range: string;
+  degree?: string;
+  major?: string;
+  gpa?: string;
+  logoUrl?: string;
+}
+
+const { school, location, range, degree, major, gpa, logoUrl } = Astro.props;
+---
+
+<Card className="w-full text-center min-h-[325px]">
+  <CardHeader>
+    <CardDescription />
+    {
+      logoUrl ? (
+        <CardTitle className="p-4 flex flex-wrap justify-center">
+          <img src={logoUrl} alt="work" class="h-14" />
+        </CardTitle>
+      ) : null
+    }
+    <CardTitle className="pt-2">{school}</CardTitle>
+    {
+      degree ? (
+        <CardTitle className="pt-2 text-gray-600 text-xl">
+          {degree} {major ? ` in ${major}` : ""}
+        </CardTitle>
+      ) : null
+    }
+    <CardDescription className="pt-2 font-bold">{location}</CardDescription>
+    <CardDescription className="">{range}</CardDescription>
+    <CardDescription className="">{gpa} GPA</CardDescription>
+  </CardHeader>
+</Card>

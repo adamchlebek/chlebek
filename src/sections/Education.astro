@@ -1,0 +1,22 @@
+---
+import EducationCard from "@/components/EducationCard.astro";
+import { getEducationCardsData } from "@/lib/getContent";
+import type { EducationCardDTO } from "@/shared/EducationCardDTO";
+
+const educationCardsData: EducationCardDTO[] = await getEducationCardsData();
+---
+
+<div class="w-full bg-gray-100">
+  <div class="px-6 pt-12 text-center">
+    <p class="text-4xl font-bold uppercase">Education</p>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4 p-12">
+    {
+      educationCardsData.map((educationCardData) => (
+        <div class="p-2">
+          <EducationCard {...educationCardData} />
+        </div>
+      ))
+    }
+  </div>
+</div>

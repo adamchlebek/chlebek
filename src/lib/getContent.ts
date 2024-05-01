@@ -1,4 +1,5 @@
 import type { AboutCardDTO } from "@/shared/AboutCardDTO";
+import type { EducationCardDTO } from "@/shared/EducationCardDTO";
 import type { ImageDataDTO } from "@/shared/ImageDataDTO";
 import type { ListItemDTO } from "@/shared/ListItemDTO";
 import type { WorkCardDTO } from "@/shared/WorkCardDTO";
@@ -54,6 +55,28 @@ export async function getCodingLevelList() {
   const data = await makeSingleRequest("lists", "coding-levels");
 
   return data?.object.metadata.items;
+}
+
+export async function getEducationCardsData() {
+  const data = await makeMultipleRequest("educations");
+
+  return data?.objects
+    .map(
+      (x: {
+        slug: string;
+        title: string;
+        metadata: {
+          card: EducationCardDTO;
+        };
+      }) => x.metadata,
+    )
+    .map((x: { card: EducationCardDTO; logo: ImageDataDTO }) => {
+      return {
+        ...x.card,
+        logoUrl: x.logo.url,
+      };
+    })
+    .sort((a: EducationCardDTO, b: EducationCardDTO) => b.id - a.id);
 }
 
 export async function getWorkCardsData() {
