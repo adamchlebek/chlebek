@@ -1,0 +1,15 @@
+---
+import { Icon } from "astro-icon/components";
+interface Props {
+  icon: string;
+  size?: string;
+  color?: string;
+  link?: string;
+}
+
+const { icon, color = "blue-300", link } = Astro.props;
+---
+
+<a href={link} target="_blank">
+  <Icon name={"mdi:" + icon} class=`w-6 h-6 text-${color}` />
+</a>

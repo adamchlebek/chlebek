@@ -1,0 +1,32 @@
+---
+import IconLink from "@/components/IconLink.astro";
+---
+
+<div class="bg-gray-900">
+  <div class="container justify-between gap-5 p-5 mx-auto lg:flex mb-6">
+    <!-- Left Side Content -->
+    <div class="mt-8 flex-1">
+      <p class="text-white text-2xl font-bold">About</p>
+      <p class="text-gray-400 mt-4">
+        Portfolio was created using Astro.js and Tailwind. Template fully
+        customized using my own design. Hosted on Vercel.
+      </p>
+      <p class="text-gray-400 mt-4">
+        Copywrite &copy; {new Date().getFullYear()} All rights reserved
+      </p>
+    </div>
+
+    <!-- Right Side Content -->
+    <div class="mt-8 flex-1 text-right">
+      <p class="text-white text-2xl font-bold">Follow Me</p>
+      <!-- Icon Container with flex and justify-end to align icons to the end -->
+      <div class="flex justify-end mt-4 gap-x-4">
+        <IconLink
+          icon="linkedin"
+          link="https://www.linkedin.com/in/adamchlebek/"
+        />
+        <IconLink icon="github" link="https://github.com/adamchlebek" />
+      </div>
+    </div>
+  </div>
+</div>
