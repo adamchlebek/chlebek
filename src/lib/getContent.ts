@@ -1,7 +1,6 @@
 import type { AboutCardDTO } from "@/shared/AboutCardDTO";
 import type { EducationCardDTO } from "@/shared/EducationCardDTO";
 import type { ImageDataDTO } from "@/shared/ImageDataDTO";
-import type { ListItemDTO } from "@/shared/ListItemDTO";
 import type { WorkCardDTO } from "@/shared/WorkCardDTO";
 import { createBucketClient } from "@cosmicjs/sdk";
 
