@@ -19,7 +19,8 @@ const { subpage } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content="{Astro.generator}" />
     <title>Adam Chlebek {subpage ? "-" + subpage : ""}</title>
-    <script defer src="https://overtracking.com/p/jYEa4gO6kj4vcILf"></script>
+    <script defer is:inline src="https://overtracking.com/p/jYEa4gO6kj4vcILf"
+    ></script>
   </head>
   <body>
     <Navbar />

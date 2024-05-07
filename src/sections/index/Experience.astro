@@ -12,7 +12,7 @@ const workCardsData: WorkCardDTO[] = await getWorkCardsData();
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 p-12">
     {
-      workCardsData.map((workCardData) => (
+      workCardsData?.map((workCardData) => (
         <div class="p-2">
           <WorkCard {...workCardData} />
         </div>
