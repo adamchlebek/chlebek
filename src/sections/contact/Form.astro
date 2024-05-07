@@ -1,0 +1,88 @@
+---
+// Import the necessary UI components
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+// Your unique Web3Forms access key
+const accessKey = "8327b954-ac6c-4b5f-b963-2de17546319d";
+---
+
+<div class="mt-8">
+  <form id="contactForm">
+    <input type="hidden" name="access_key" value={accessKey} />
+    <div class="flex flex-col md:flex-row gap-6">
+      <div class="w-full md:w-1/2">
+        <Input name="name" placeholder="Your Name" />
+      </div>
+      <div class="w-full md:w-1/2">
+        <Input type="email" name="email" placeholder="Your Email" />
+      </div>
+    </div>
+    <div class="mt-6">
+      <Textarea name="message" placeholder="Your Message" />
+    </div>
+    <div class="flex justify-center mt-6">
+      <Button type="button" size="lg">Send Message</Button>
+    </div>
+  </form>
+  <p id="responseMessage" class="text-center mt-6"></p>
+</div>
+
+<script>
+  document
+    .querySelector("#contactForm button")
+    ?.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      const form = document.getElementById("contactForm") as any;
+      const formData = new FormData(form);
+      const responseMessage = document.getElementById("responseMessage");
+
+      // Make sure all forms are filled out
+      if (
+        !formData.get("name") ||
+        !formData.get("email") ||
+        !formData.get("message")
+      ) {
+        if (!responseMessage) {
+          return;
+        }
+
+        responseMessage.textContent = "Please fill out all fields.";
+        responseMessage.classList.add("text-red-500");
+        return;
+      }
+
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (!responseMessage) {
+            return;
+          }
+
+          if (data.success) {
+            responseMessage.textContent =
+              "Your message has been sent! I will respond as soon as I can.";
+            responseMessage.classList.add("text-green-500");
+          } else {
+            responseMessage.textContent =
+              "Something went wrong, please try again.";
+            responseMessage.classList.add("text-red-500");
+          }
+
+          form.reset();
+        })
+        .catch((error) => {
+          if (!responseMessage) {
+            return;
+          }
+
+          responseMessage.textContent = "Error: " + error.message;
+          responseMessage.classList.add("text-red-500");
+        });
+    });
+</script>

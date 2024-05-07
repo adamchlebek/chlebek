@@ -23,6 +23,13 @@ export async function getAboutText() {
   return data?.object.metadata.text.value;
 }
 
+export async function getResumeDownloadURL() {
+  const data = await makeSingleRequest("files", "resume");
+
+  return data?.object.metadata.file.url;
+
+}
+
 export async function getAboutCardsData() {
   const data = await makeMultipleRequest("abouts");
 

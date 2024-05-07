@@ -1,8 +1,9 @@
 ---
 import { Button } from "@/components/ui/button";
-import { getHeaderText } from "@/lib/getContent";
+import { getHeaderText, getResumeDownloadURL } from "@/lib/getContent";
 
 const headerText = await getHeaderText();
+const resumeURL = await getResumeDownloadURL();
 ---
 
 <div class="w-full text-center bg-gray-100">
@@ -12,7 +13,9 @@ const headerText = await getHeaderText();
       {headerText}
     </p>
     <div class="mt-8 sm:mt-6">
-      <Button size={"lg"}>Download Resume</Button>
+      <a href={resumeURL} target="_blank">
+        <Button size={"lg"}>View Resume</Button>
+      </a>
     </div>
   </div>
   <div class="flex justify-center w-full mt-6">

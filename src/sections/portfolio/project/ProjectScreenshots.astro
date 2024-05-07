@@ -1,0 +1,35 @@
+---
+import type { ProjectDTO } from "@/shared/ProjectDTO";
+
+interface Props {
+  projectData: ProjectDTO;
+}
+
+const { projectData } = Astro.props;
+---
+
+{
+  projectData.screenshotUrls && projectData.screenshotUrls.length > 0 ? (
+    <div class="text-center w-full mb-4">
+      <p class="text-gray-500 font-bold text-xl">Screenshots</p>
+    </div>
+  ) : null
+}
+
+<div class="w-full flex justify-center bg-white pb-24">
+  <div class="flex flex-wrap justify-center items-start gap-x-4">
+    {
+      projectData.screenshotUrls && projectData.screenshotUrls.length > 0
+        ? projectData.screenshotUrls.map((url, index) => (
+            <div class="p-2">
+              <img
+                src={url}
+                alt={`Screenshot ${index + 1}`}
+                class="w-[670px] object-contain rounded-lg shadow-lg"
+              />
+            </div>
+          ))
+        : null
+    }
+  </div>
+</div>
