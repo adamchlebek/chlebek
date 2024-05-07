@@ -1,5 +1,6 @@
 ---
 import { Button } from "@/components/ui/button";
+import { SparklesCore } from "@/components/ui/sparkles";
 import { getHeaderText, getResumeDownloadURL } from "@/lib/getContent";
 
 const headerText = await getHeaderText();
@@ -7,18 +8,34 @@ const resumeURL = await getResumeDownloadURL();
 ---
 
 <div class="w-full text-center bg-gray-100">
-  <div class="px-6 pt-24">
-    <p class="font-bold uppercase text-7xl">Adam Chlebek</p>
-    <p class="px-6 pt-6 text-xl sm:text-lg sm:px-6 md:px-24 lg:px-96">
-      {headerText}
-    </p>
-    <div class="mt-8 sm:mt-6">
-      <a href={resumeURL} target="_blank">
-        <Button size={"lg"}>View Resume</Button>
-      </a>
+  <div
+    class="relative w-full bg-gray-100 flex flex-col items-center justify-center overflow-hidden rounded-md"
+  >
+    <div class="w-full absolute inset-0 h-screen">
+      <SparklesCore
+        id="tsparticlesfullpage"
+        background="transparent"
+        minSize={0.6}
+        maxSize={1.4}
+        particleDensity={100}
+        className="w-full h-full"
+        particleColor="#52525b"
+        client:load
+      />
     </div>
-  </div>
-  <div class="flex justify-center w-full mt-6">
-    <img src="/adam_peep.png" alt="Hero" class="h-auto max-w-xs mx-auto" />
+    <div class="px-6 pt-24">
+      <p class="font-bold uppercase text-7xl">Adam Chlebek</p>
+      <p class="px-6 pt-6 text-xl sm:text-lg sm:px-6 md:px-24 lg:px-96">
+        {headerText}
+      </p>
+      <div class="mt-8 sm:mt-6">
+        <a href={resumeURL} target="_blank">
+          <Button size={"lg"}>View Resume</Button>
+        </a>
+      </div>
+    </div>
+    <div class="flex justify-center w-full mt-6">
+      <img src="/adam_peep.png" alt="Hero" class="h-auto max-w-xs mx-auto" />
+    </div>
   </div>
 </div>
