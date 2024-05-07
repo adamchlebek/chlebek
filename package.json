@@ -25,6 +25,7 @@
     "astro": "^4.5.16",
     "astro-icon": "^1.1.0",
     "astro-navbar": "^2.3.1",
+    "astro-seo": "^0.8.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.365.0",
