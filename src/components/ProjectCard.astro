@@ -1,0 +1,30 @@
+---
+interface Props {
+  slug?: string;
+  title?: string;
+  subheader?: string;
+  imageUrl?: string;
+  textColor?: string;
+}
+
+const { slug, title, subheader, imageUrl, textColor } = Astro.props;
+---
+
+<a href=`/portfolio/${slug}`>
+  <div
+    style={{ backgroundImage: `url(${imageUrl})`, color: textColor }}
+    class="w-96 h-96 shadow-lg rounded-lg overflow-hidden flex flex-col justify-between bg-cover bg-center cursor-pointer hover:shadow-2xl transition-all duration-200 ease-in-out"
+  >
+    <div class="w-full h-full flex flex-col justify-between">
+      <div class="p-4 flex flex-wrap justify-center items-start"></div>
+      <div class="px-12 py-4 text-left rounded-b-lg mb-4">
+        <div class="text-xl font-bold">
+          {title}
+        </div>
+        <div class="text-lg font-normal mt-2">
+          {subheader}
+        </div>
+      </div>
+    </div>
+  </div>
+</a>

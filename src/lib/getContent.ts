@@ -1,6 +1,8 @@
 import type { AboutCardDTO } from "@/shared/AboutCardDTO";
 import type { EducationCardDTO } from "@/shared/EducationCardDTO";
 import type { ImageDataDTO } from "@/shared/ImageDataDTO";
+import type { ProjectDTO } from "@/shared/ProjectDTO";
+import type { ScreenshotDataDTO } from "@/shared/ScreenshotDataDTO";
 import type { WorkCardDTO } from "@/shared/WorkCardDTO";
 import { createBucketClient } from "@cosmicjs/sdk";
 
@@ -36,6 +38,64 @@ export async function getAboutCardsData() {
     )
     .map((x: { card: AboutCardDTO }) => x.card)
     .sort((a: AboutCardDTO, b: AboutCardDTO) => a.id - b.id);
+}
+
+export async function getProjectCardData() {}
+
+export async function getProjectData() {
+  const data = await makeMultipleRequest("projects");
+
+  return data?.objects
+    .map(
+      (x: {
+        slug: string;
+        title: string;
+        metadata: {
+          card: ProjectDTO;
+        };
+      }) => {
+        return {
+          ...x.metadata,
+          slug: x.slug,
+        };
+      },
+    )
+    .map(
+      (x: {
+        card: ProjectDTO;
+        logo: ImageDataDTO;
+        screenshots: ScreenshotDataDTO[];
+        slug: string;
+      }) => {
+        return {
+          ...x.card,
+          slug: x.slug,
+          imageUrl: x.logo?.url,
+          screenshotUrls: x.screenshots.map(
+            (screenshot) => screenshot.screenshot?.url,
+          ),
+        };
+      },
+    );
+}
+
+export async function getSingleProjectData(slug: string): Promise<ProjectDTO> {
+  const data = await cosmic.objects
+    .findOne({
+      type: "projects",
+      slug: slug,
+    })
+    .props(["slug", "metadata"])
+    .depth(1);
+
+  return {
+    ...data.object.metadata.card,
+    slug: data.object.slug,
+    imageUrl: data.object.metadata.logo.url,
+    screenshotUrls: data.object.metadata.screenshots.map(
+      (screenshot: ScreenshotDataDTO) => screenshot.screenshot.url,
+    ),
+  };
 }
 
 export async function getSkillsList() {
@@ -120,7 +180,7 @@ async function makeMultipleRequest(type: string) {
   try {
     const data = await cosmic.objects
       .find({ type: type })
-      .props("metadata")
+      .props(["slug", "metadata"])
       .depth(1);
 
     return data;

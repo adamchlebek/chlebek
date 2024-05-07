@@ -1,0 +1,31 @@
+---
+import ProjectCard from "@/components/ProjectCard.astro";
+import { getProjectData } from "@/lib/getContent";
+import type { ProjectDTO } from "@/shared/ProjectDTO";
+
+const projectCardData: ProjectDTO[] = await getProjectData();
+---
+
+<div class="w-full text-center">
+  <div class="px-6 pt-24 pb-20">
+    <p class="font-bold uppercase text-3xl">Recent Projects</p>
+    <p class="mt-2">
+      A few recent projects are linked below. More on my
+      <a class="text-blue-500" href="https://github.com/adamchlebek">GitHub</a>
+    </p>
+  </div>
+
+  <div class="flex flex-wrap justify-center gap-20 px-6 mb-24">
+    {
+      projectCardData.map((project) => (
+        <ProjectCard
+          slug={project.slug || ""}
+          title={project.title}
+          imageUrl={project.imageUrl || ""}
+          subheader={project.subheader}
+          textColor={project.textColor}
+        />
+      ))
+    }
+  </div>
+</div>
