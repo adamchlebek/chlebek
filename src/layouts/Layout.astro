@@ -26,6 +26,18 @@ const { subpage } = Astro.props;
       is:inline
       src="https://analytics.us.umami.is/script.js"
       data-website-id="87dd42f8-b3e8-4a93-bdff-231f145666bc"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEB0VY204E"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-ZEB0VY204E");
+    </script>
   </head>
   <body>
     <Navbar />
