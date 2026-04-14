@@ -40,6 +40,14 @@ function databaseConnectionString(): string {
   return `${raw}${raw.includes('?') ? '&' : '?'}sslmode=require`
 }
 
+function vercelBlobReadWriteToken(): string | undefined {
+  const t =
+    process.env.BLOB_READ_WRITE_TOKEN ||
+    process.env.PAYLOAD_BLOB_READ_WRITE_TOKEN ||
+    ''
+  return t.length > 0 ? t : undefined
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -62,11 +70,11 @@ export default buildConfig({
   sharp,
   plugins: [
     vercelBlobStorage({
-      enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      enabled: Boolean(vercelBlobReadWriteToken()),
       collections: {
         media: true,
       },
-      token: process.env.BLOB_READ_WRITE_TOKEN,
+      token: vercelBlobReadWriteToken(),
       clientUploads: true,
     }),
   ],
