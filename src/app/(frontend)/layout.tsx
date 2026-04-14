@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 import { Fraunces, Inter } from 'next/font/google'
 import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
@@ -47,6 +48,7 @@ export default async function FrontendLayout({ children }: Props): Promise<React
           <main>{children}</main>
           <Footer profile={profile} />
         </SmoothScroll>
+        <Analytics />
       </body>
     </html>
   )
