@@ -48,6 +48,8 @@ function vercelBlobReadWriteToken(): string | undefined {
   return t.length > 0 ? t : undefined
 }
 
+const blobToken = vercelBlobReadWriteToken()
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -70,12 +72,12 @@ export default buildConfig({
   sharp,
   plugins: [
     vercelBlobStorage({
-      enabled: Boolean(vercelBlobReadWriteToken()),
+      enabled: Boolean(blobToken),
       collections: {
         media: true,
       },
-      token: vercelBlobReadWriteToken(),
-      clientUploads: true,
+      token: blobToken,
+      clientUploads: Boolean(blobToken),
     }),
   ],
 })
