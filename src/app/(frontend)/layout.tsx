@@ -5,6 +5,7 @@ import { Fraunces, Inter } from 'next/font/google'
 import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
+import { getProfileResumeDownload } from '@/lib/profileResume'
 import { getPayloadClient } from '@/lib/payload'
 import './globals.css'
 
@@ -38,13 +39,14 @@ type Props = {
 
 export default async function FrontendLayout({ children }: Props): Promise<ReactNode> {
   const payload = await getPayloadClient()
-  const profile = await payload.findGlobal({ slug: 'profile' })
+  const profile = await payload.findGlobal({ slug: 'profile', depth: 1 })
+  const resumeDownload = getProfileResumeDownload(profile)
 
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body className="bg-cream text-ink">
         <SmoothScroll>
-          <Nav />
+          <Nav resumeDownload={resumeDownload} />
           <main>{children}</main>
           <Footer profile={profile} />
         </SmoothScroll>

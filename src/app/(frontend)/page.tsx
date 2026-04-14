@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
+import { getProfileResumeDownload } from '@/lib/profileResume'
 import { getPayloadClient } from '@/lib/payload'
 import { Hero } from '@/components/home/Hero'
 import { Accomplishments } from '@/components/home/Accomplishments'
@@ -18,11 +19,13 @@ export default async function HomePage(): Promise<ReactNode> {
   const payload = await getPayloadClient()
 
   const [profile, accomplishments, roles, testimonials] = await Promise.all([
-    payload.findGlobal({ slug: 'profile' }),
+    payload.findGlobal({ slug: 'profile', depth: 1 }),
     payload.find({ collection: 'accomplishments', sort: 'sortOrder', limit: 20 }),
     payload.find({ collection: 'roles', sort: 'sortOrder', limit: 20 }),
     payload.find({ collection: 'testimonials', sort: 'sortOrder', limit: 10 }),
   ])
+
+  const resumeDownload = getProfileResumeDownload(profile)
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -44,7 +47,7 @@ export default async function HomePage(): Promise<ReactNode> {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Hero name={profile.name} tagline={profile.tagline} />
+      <Hero name={profile.name} tagline={profile.tagline} resumeDownload={resumeDownload} />
       <Accomplishments accomplishments={accomplishments.docs} />
       <About profile={profile} />
       <Experience roles={roles.docs} />

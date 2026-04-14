@@ -1,15 +1,17 @@
 'use client'
 
 import { type ReactNode } from 'react'
+import type { ProfileResumeDownload } from '@/lib/profileResume'
 import { RevealText } from '@/components/shared/RevealText'
 import { HeroBackground } from './HeroBackground'
 
 type Props = {
   name: string
   tagline: string
+  resumeDownload: ProfileResumeDownload | null
 }
 
-export function Hero({ name, tagline }: Props): ReactNode {
+export function Hero({ name, tagline, resumeDownload }: Props): ReactNode {
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
       <HeroBackground />
@@ -22,12 +24,22 @@ export function Hero({ name, tagline }: Props): ReactNode {
             {tagline}
           </RevealText>
           <RevealText className="mt-8 flex justify-center sm:mt-10 md:mt-12" delay={0.8}>
-            <a
-              href="#about"
-              className="label-caps border border-ink/20 px-6 py-3 text-ink no-underline transition-all duration-300 hover:border-ink hover:bg-ink hover:text-cream sm:px-8"
-            >
-              Learn More
-            </a>
+            {resumeDownload ? (
+              <a
+                href={resumeDownload.href}
+                download={resumeDownload.downloadName}
+                className="label-caps border border-ink/20 px-6 py-3 text-ink no-underline transition-all duration-300 hover:border-ink hover:bg-ink hover:text-cream sm:px-8"
+              >
+                Download resume
+              </a>
+            ) : (
+              <a
+                href="#about"
+                className="label-caps border border-ink/20 px-6 py-3 text-ink no-underline transition-all duration-300 hover:border-ink hover:bg-ink hover:text-cream sm:px-8"
+              >
+                Learn More
+              </a>
+            )}
           </RevealText>
         </div>
       </div>

@@ -1,12 +1,14 @@
-import Link from 'next/link'
 import type { ReactNode } from 'react'
 import type { Profile } from '@/payload-types'
+import { getProfileResumeDownload } from '@/lib/profileResume'
 
 type Props = {
   profile: Profile
 }
 
 export function Footer({ profile }: Props): ReactNode {
+  const resumeDownload = getProfileResumeDownload(profile)
+
   return (
     <footer className="border-t border-border bg-ink px-4 py-12 text-cream sm:px-6 sm:py-16 md:px-12">
       <div className="mx-auto max-w-7xl">
@@ -37,14 +39,15 @@ export function Footer({ profile }: Props): ReactNode {
                 </a>
               ))}
             </div>
-            {profile.resume && typeof profile.resume !== 'number' && (
-              <Link
-                href={profile.resume.url || '#'}
-                className="label-caps text-ink-faint no-underline transition-colors hover:text-cream"
+            {resumeDownload ? (
+              <a
+                href={resumeDownload.href}
+                download={resumeDownload.downloadName}
+                className="label-caps border border-cream/30 px-3 py-2 text-cream no-underline transition-colors hover:border-cream hover:bg-cream hover:text-ink sm:px-4"
               >
-                Download Resume
-              </Link>
-            )}
+                Download resume
+              </a>
+            ) : null}
           </div>
         </div>
         <div className="mt-12 border-t border-white/10 pt-6 sm:mt-16">
