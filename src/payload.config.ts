@@ -49,7 +49,6 @@ function vercelBlobReadWriteToken(): string | undefined {
 }
 
 const blobToken = vercelBlobReadWriteToken()
-const blobClientUploads = Boolean(blobToken) && process.env.VERCEL === '1'
 
 export default buildConfig({
   admin: {
@@ -78,7 +77,7 @@ export default buildConfig({
         media: true,
       },
       token: blobToken,
-      clientUploads: blobClientUploads,
+      clientUploads: false,
     }),
   ],
 })
