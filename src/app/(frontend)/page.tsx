@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: 'Engineering leader. Operator. Builder of teams that ship.',
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage(): Promise<ReactNode> {
   const payload = await getPayloadClient()
 

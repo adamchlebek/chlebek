@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: 'Selected projects and writing by Adam Chlebek.',
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function WorkPage(): Promise<ReactNode> {
   const payload = await getPayloadClient()
 

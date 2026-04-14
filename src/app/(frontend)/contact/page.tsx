@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: 'Get in touch with Adam Chlebek.',
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function ContactPage(): Promise<ReactNode> {
   const payload = await getPayloadClient()
   const profile = await payload.findGlobal({ slug: 'profile' })
