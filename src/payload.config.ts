@@ -17,6 +17,28 @@ import { Profile } from './globals/Profile'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+function databaseConnectionString(): string {
+  const raw =
+    process.env.DATABASE_URI ||
+    process.env.DATABASE_URL ||
+    process.env.POSTGRES_URL ||
+    ''
+  if (!raw) {
+    return ''
+  }
+  if (/[?&]sslmode=/i.test(raw)) {
+    return raw
+  }
+  const hostIsLocal =
+    /@(localhost|127\.0\.0\.1)(?=[/:]|$)/i.test(raw) ||
+    /\/\/localhost(?=[/:]|$)/i.test(raw) ||
+    /\/\/127\.0\.0\.1(?=[/:]|$)/i.test(raw)
+  if (hostIsLocal) {
+    return raw
+  }
+  return `${raw}${raw.includes('?') ? '&' : '?'}sslmode=require`
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -33,7 +55,7 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || '',
+      connectionString: databaseConnectionString(),
     },
   }),
   sharp,
